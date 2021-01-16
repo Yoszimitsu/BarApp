@@ -21,6 +21,7 @@
         <maven.checkstyle.plugin.version>3.1.0</maven.checkstyle.plugin.version>
         <maven.pmd.plugin.version>3.12.0</maven.pmd.plugin.version>
         <maven.jxr.plugin.version>3.0.0</maven.jxr.plugin.version>
+        <jakarta.validation-api.version>3.0.0</jakarta.validation-api.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,15 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jxr-plugin</artifactId>
             <version>${maven.jxr.plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${jakarta.validation-api.version}</version>
         </dependency>
     </dependencies>
 
