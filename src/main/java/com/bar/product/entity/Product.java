@@ -7,9 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
 
 @Entity
+@Table(name = "products")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -17,6 +21,7 @@ import javax.persistence.Id;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private long productId;
 
@@ -24,6 +29,6 @@ public class Product {
     private String name;
 
     @NotNull
-    private double price_net;
+    private double priceNet;
 }
 
