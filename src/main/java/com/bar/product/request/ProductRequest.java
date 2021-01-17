@@ -20,5 +20,5 @@ public class ProductRequest {
     @NotBlank(message = "Price must not be empty")
     @PositiveOrZero
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private double price_net;
+    private double priceNet;
 }

@@ -28,7 +28,7 @@ public class ProductService {
     public Product add(ProductRequest productRequest) {
         var product = Product.builder()
                 .name(productRequest.getName())
-                .price_net(productRequest.getPrice_net())
+                .priceNet(productRequest.getPriceNet())
                 .build();
         return productRepository.save(product);
     }
@@ -37,7 +37,7 @@ public class ProductService {
         checkIfProductExistsInDatabase(productId);
         var product = Product.builder()
                 .name(productRequest.getName())
-                .price_net(productRequest.getPrice_net())
+                .priceNet(productRequest.getPriceNet())
                 .build();
         return productRepository.save(product);
     }
