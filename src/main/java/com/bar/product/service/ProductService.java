@@ -17,7 +17,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public Product get(long productId) {
-        return Optional.of(productRepository.findById(productId).get())
+        return Optional.of(productRepository.findById(productId)).get()
                 .orElseThrow(() -> new NotFoundException("Product not found", Long.toString(productId)));
     }
 
@@ -36,6 +36,7 @@ public class ProductService {
     public Product update(long productId, ProductRequest productRequest) {
         checkIfProductExistsInDatabase(productId);
         var product = Product.builder()
+                .id(productId)
                 .name(productRequest.getName())
                 .priceNet(productRequest.getPriceNet())
                 .build();
@@ -49,7 +50,7 @@ public class ProductService {
 
     private void checkIfProductExistsInDatabase(long productId) {
         if (!productRepository.existsById(productId)) {
-            throw new NotFoundException("CommunityMeeting not found", Long.toString(productId));
+            throw new NotFoundException("Product not found", Long.toString(productId));
         }
     }
 }

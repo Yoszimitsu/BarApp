@@ -14,10 +14,10 @@ import org.springframework.format.annotation.NumberFormat;
 @Data
 public class ProductRequest {
 
-    @NotBlank(message = "Product name must not be empty")
+    @NotBlank(message = "Product name must not be empty.")
     private String name;
 
-    @NotBlank(message = "Price must not be empty")
+    @NotBlank(message = "Price must not be empty.")
     @PositiveOrZero
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private double priceNet;

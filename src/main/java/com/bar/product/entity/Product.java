@@ -1,5 +1,6 @@
 package com.bar.product.entity;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,9 +24,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    private long productId;
+    private long id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     @NotNull
