@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "order_item_id", nullable = false)
     @NotNull
     private long id;
 
@@ -40,6 +42,7 @@ public class OrderItem {
     @NotNull
     private Product product;
 
+    @Column(name = "quantity", nullable = false)
     @NotNull
     private int quantity;
 }
