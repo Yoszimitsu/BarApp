@@ -5,6 +5,7 @@ import com.bar.product.repository.ProductRepository;
 import com.bar.product.request.ProductRequest;
 import com.bar.system.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-    public Product get(long productId) {
-        return Optional.of(productRepository.findById(productId)).get()
-                .orElseThrow(() -> new NotFoundException("Product not found", Long.toString(productId)));
+    public Product get(long id) {
+        return Optional.of(productRepository.findById(id)).get()
+                .orElseThrow(() -> new NotFoundException("Product not found", Long.toString(id)));
     }
 
     public List<Product> getALl() {
@@ -33,24 +35,24 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product update(long productId, ProductRequest productRequest) {
-        checkIfProductExistsInDatabase(productId);
+    public Product update(long id, ProductRequest productRequest) {
+        checkIfProductExistsInDatabase(id);
         var product = Product.builder()
-                .id(productId)
+                .id(id)
                 .name(productRequest.getName())
                 .priceNet(productRequest.getPriceNet())
                 .build();
         return productRepository.save(product);
     }
 
-    public void delete(long productId) {
-        checkIfProductExistsInDatabase(productId);
-        productRepository.deleteById(productId);
+    public void delete(long id) {
+        checkIfProductExistsInDatabase(id);
+        productRepository.deleteById(id);
     }
 
-    private void checkIfProductExistsInDatabase(long productId) {
-        if (!productRepository.existsById(productId)) {
-            throw new NotFoundException("Product not found", Long.toString(productId));
+    private void checkIfProductExistsInDatabase(long id) {
+        if (!productRepository.existsById(id)) {
+            throw new NotFoundException("Product not found", Long.toString(id));
         }
     }
 }

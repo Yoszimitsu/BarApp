@@ -6,6 +6,7 @@ import com.bar.bill.request.BillRequest;
 import com.bar.order.service.OrderService;
 import com.bar.system.error.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BillService {
 
-    private final BillRepository billRepository;
-    private final OrderService orderService;
+    @Autowired
+    private BillRepository billRepository;
+    @Autowired
+    private OrderService orderService;
 
     public Bill get(long id) {
         return Optional.of(billRepository.findById(id)).get()
