@@ -1,7 +1,7 @@
 package com.bar.order.controller;
 
 import com.bar.order.dto.OrderDto;
-import com.bar.order.mapper.OrderMapper;
+import com.bar.order.service.mapper.OrderMapperService;
 import com.bar.order.request.OrderRequest;
 import com.bar.order.service.OrderService;
 import com.bar.system.endpoint.Endpoint;
@@ -30,7 +30,7 @@ public class OrderController {
 
     protected static final String ORDER_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_ORDER;
     private final OrderService orderService;
-    private final OrderMapper orderMapper;
+    private final OrderMapperService orderMapperService;
 
     @GetMapping(
             value = "/{id}",
@@ -40,7 +40,7 @@ public class OrderController {
         log.info("GET " + ORDER_ENDPOINT + "/" + id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(orderMapper.mapToDto(orderService.get(id)));
+                .body(orderMapperService.mapToDto(orderService.get(id)));
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +48,7 @@ public class OrderController {
         log.info("GET " + ORDER_ENDPOINT);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(orderMapper.mapToOrderDtoList(orderService.getAll()));
+                .body(orderMapperService.mapToOrderDtoList(orderService.getAll()));
     }
 
     @PostMapping(
@@ -59,7 +59,7 @@ public class OrderController {
         log.info("POST " + ORDER_ENDPOINT);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(orderMapper.mapToDto(orderService.add(orderRequest)));
+                .body(orderMapperService.mapToDto(orderService.add(orderRequest)));
     }
 
     @PutMapping(
@@ -71,7 +71,7 @@ public class OrderController {
         log.info("PUT " + ORDER_ENDPOINT + "/" + id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(orderMapper.mapToDto(orderService.update(id, orderRequest)));
+                .body(orderMapperService.mapToDto(orderService.update(id, orderRequest)));
     }
 
     @DeleteMapping(

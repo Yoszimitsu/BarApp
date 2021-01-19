@@ -1,4 +1,4 @@
-package com.bar.order.mapper;
+package com.bar.order.service.mapper;
 
 import com.bar.order.dto.OrderDto;
 import com.bar.order.entity.Order;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrderMapper {
+public class OrderMapperService {
 
     private final OrderItemService orderItemService;
     private final OrderItemMapper orderItemMapper;
@@ -30,7 +30,6 @@ public class OrderMapper {
     /**
      * Default mapStruct.Mapper library implementation.
      * Method maps OrderDto to Order object.
-     *
      */
     public Order mapToEntity(OrderDto orderDto) {
         if (orderDto == null) {
@@ -48,7 +47,6 @@ public class OrderMapper {
     /**
      * Default mapStruct.Mapper library implementation.
      * Method maps List of Order to List of OrderDto collection.
-     *
      */
     public List<OrderDto> mapToOrderDtoList(List<Order> orderList) {
         if (orderList == null) {
