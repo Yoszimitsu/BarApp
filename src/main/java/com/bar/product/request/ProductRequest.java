@@ -1,12 +1,13 @@
 package com.bar.product.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.NumberFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,10 +15,10 @@ import org.springframework.format.annotation.NumberFormat;
 @Data
 public class ProductRequest {
 
-    @NotBlank(message = "Product name must not be empty.")
+    @NotNull(message = "Product name must not be empty.")
     private String name;
 
-    @NotBlank(message = "Price must not be empty.")
+    @NotNull(message = "Price must not be empty.")
     @PositiveOrZero
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private double priceNet;

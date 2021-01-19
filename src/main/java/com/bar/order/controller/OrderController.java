@@ -1,13 +1,13 @@
 package com.bar.order.controller;
 
 import com.bar.order.dto.OrderDto;
-import com.bar.order.service.mapper.OrderMapperService;
 import com.bar.order.request.OrderRequest;
 import com.bar.order.service.OrderService;
+import com.bar.order.service.mapper.OrderMapperService;
 import com.bar.system.endpoint.Endpoint;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller()
@@ -29,8 +30,11 @@ import java.util.List;
 public class OrderController {
 
     protected static final String ORDER_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_ORDER;
-    private final OrderService orderService;
-    private final OrderMapperService orderMapperService;
+
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderMapperService orderMapperService;
 
     @GetMapping(
             value = "/{id}",

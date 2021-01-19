@@ -5,9 +5,9 @@ import com.bar.product.mapper.ProductMapper;
 import com.bar.product.request.ProductRequest;
 import com.bar.product.service.ProductService;
 import com.bar.system.endpoint.Endpoint;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController()
@@ -29,8 +30,11 @@ import java.util.List;
 public class ProductController {
 
     static final String PRODUCT_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_PRODUCT;
-    private final ProductService productService;
-    private final ProductMapper productMapper;
+
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private ProductMapper productMapper;
 
     @GetMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE

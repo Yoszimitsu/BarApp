@@ -1,13 +1,13 @@
 package com.bar.bill.controller;
 
 import com.bar.bill.dto.BillDto;
-import com.bar.bill.service.mapper.BillMapperService;
 import com.bar.bill.request.BillRequest;
 import com.bar.bill.service.BillService;
+import com.bar.bill.service.mapper.BillMapperService;
 import com.bar.system.endpoint.Endpoint;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller()
@@ -29,8 +30,11 @@ import java.util.List;
 public class BillController {
 
     protected static final String BILL_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_BILL;
-    private final BillService billService;
-    private final BillMapperService billMapperService;
+
+    @Autowired
+    private BillService billService;
+    @Autowired
+    private BillMapperService billMapperService;
 
     @GetMapping(
             value = "/{id}",

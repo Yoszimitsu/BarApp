@@ -20,7 +20,6 @@
         <java.version>11</java.version>
         <spring-boot-starter.version>2.2.6.RELEASE</spring-boot-starter.version>
         <spring-boot-maven-plugin.version>2.4.1</spring-boot-maven-plugin.version>
-        <jakarta.validation-api.version>3.0.0</jakarta.validation-api.version>
         <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
         <h2.database.version>1.4.200</h2.database.version>
         <postgres.database.version>42.2.16</postgres.database.version>
@@ -64,9 +63,12 @@
             <version>${maven.jxr.plugin.version}</version>
         </dependency>
         <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>${jakarta.validation-api.version}</version>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
