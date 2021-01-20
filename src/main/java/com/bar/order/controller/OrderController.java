@@ -23,18 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller()
+@Controller
 @RequestMapping(OrderController.ORDER_ENDPOINT)
 @AllArgsConstructor
 @Slf4j
 public class OrderController {
 
-    protected static final String ORDER_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_ORDER;
+    static final String ORDER_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_ORDER;
 
     @Autowired
-    private OrderService orderService;
+    OrderService orderService;
     @Autowired
-    private OrderMapperService orderMapperService;
+    OrderMapperService orderMapperService;
 
     @GetMapping(
             value = "/{id}",

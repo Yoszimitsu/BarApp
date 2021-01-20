@@ -4,18 +4,19 @@ import com.bar.order.dto.OrderDto;
 import com.bar.order.entity.Order;
 import com.bar.orderitems.mapper.OrderItemMapper;
 import com.bar.orderitems.service.OrderItemService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class OrderMapperService {
 
-    private final OrderItemService orderItemService;
-    private final OrderItemMapper orderItemMapper;
+    @Autowired
+    OrderItemService orderItemService;
+    @Autowired
+    OrderItemMapper orderItemMapper;
 
     public OrderDto mapToDto(Order order) {
         var orderDto = OrderDto.builder()

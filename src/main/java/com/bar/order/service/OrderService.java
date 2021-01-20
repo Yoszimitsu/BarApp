@@ -5,7 +5,6 @@ import com.bar.order.repository.OrderRepository;
 import com.bar.order.request.OrderRequest;
 import com.bar.orderitems.service.OrderItemService;
 import com.bar.system.error.NotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    OrderRepository orderRepository;
     @Autowired
-    private OrderItemService orderItemService;
+    OrderItemService orderItemService;
 
     public Order get(long id) {
         return Optional.of(orderRepository.findById(id)).get()
