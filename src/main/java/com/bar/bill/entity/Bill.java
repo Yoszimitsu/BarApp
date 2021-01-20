@@ -35,7 +35,7 @@ public class Bill {
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    @NotBlank
+    @NotNull
     private Order order;
 
     @Column(name = "company", nullable = false)

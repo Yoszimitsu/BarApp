@@ -23,18 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller()
+@Controller
 @RequestMapping(value = BillController.BILL_ENDPOINT)
 @AllArgsConstructor
 @Slf4j
 public class BillController {
 
-    protected static final String BILL_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_BILL;
+    static final String BILL_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_BILL;
 
     @Autowired
-    private BillService billService;
+    BillService billService;
     @Autowired
-    private BillMapperService billMapperService;
+    BillMapperService billMapperService;
 
     @GetMapping(
             value = "/{id}",

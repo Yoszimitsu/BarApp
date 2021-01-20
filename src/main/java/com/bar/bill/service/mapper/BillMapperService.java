@@ -3,7 +3,7 @@ package com.bar.bill.service.mapper;
 import com.bar.bill.dto.BillDto;
 import com.bar.bill.entity.Bill;
 import com.bar.order.service.mapper.OrderMapperService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class BillMapperService {
 
-    private final OrderMapperService orderMapperService;
+    @Autowired
+    OrderMapperService orderMapperService;
 
     public Bill mapToEntity(BillDto billDto) {
         var bill = Bill.builder()
