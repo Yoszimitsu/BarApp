@@ -28,7 +28,7 @@ public class Product {
     @NotNull
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     @NotBlank
     private String name;
 

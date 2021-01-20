@@ -4,7 +4,6 @@ import com.bar.product.entity.Product;
 import com.bar.product.repository.ProductRepository;
 import com.bar.product.request.ProductRequest;
 import com.bar.system.error.NotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    ProductRepository productRepository;
 
     public Product get(long id) {
-        return Optional.of(productRepository.findById(id)).get()
+        return Optional.ofNullable(productRepository.findById(id)).get()
                 .orElseThrow(() -> new NotFoundException("Product not found", Long.toString(id)));
     }
 

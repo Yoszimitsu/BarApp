@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping(ProductController.PRODUCT_ENDPOINT)
 @RequiredArgsConstructor
 @Slf4j
@@ -32,9 +32,9 @@ public class ProductController {
     static final String PRODUCT_ENDPOINT = Endpoint.API_ROOT + Endpoint.URN_PRODUCT;
 
     @Autowired
-    private ProductService productService;
+    ProductService productService;
     @Autowired
-    private ProductMapper productMapper;
+    ProductMapper productMapper;
 
     @GetMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
