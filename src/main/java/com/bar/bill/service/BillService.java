@@ -5,7 +5,6 @@ import com.bar.bill.repository.BillRepository;
 import com.bar.bill.request.BillRequest;
 import com.bar.order.service.OrderService;
 import com.bar.system.error.NotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +12,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class BillService {
 
     @Autowired
-    private BillRepository billRepository;
+    BillRepository billRepository;
     @Autowired
-    private OrderService orderService;
+    OrderService orderService;
+    @Autowired
+    BillCalcService billCalcService;
 
     public Bill get(long id) {
-        return Optional.of(billRepository.findById(id)).get()
+        var bill = Optional.of(billRepository.findById(id)).get()
                 .orElseThrow(() -> new NotFoundException("Bill not found", Long.toString(id)));
+
+        return setPrice(bill);
     }
 
     public List<Bill> getAll() {
-        return billRepository.findAll();
+        var billList = billRepository.findAll();
+        billList.stream().forEach(bill -> setPrice(bill)
+        );
+
+        return billList;
     }
 
     public Bill add(BillRequest billRequest) {
@@ -35,12 +41,11 @@ public class BillService {
                 .order(orderService.get(billRequest.getOrderId()))
                 .company(billRequest.getCompany())
                 .dateTime(billRequest.getDateTime())
-                .priceNet(billRequest.getPriceNet())
                 .customerName(Optional.ofNullable(billRequest.getCustomerName()).orElse(null))
                 .nipNumber(Optional.ofNullable(billRequest.getNipNumber()).orElse(null))
                 .build();
 
-        return billRepository.save(bill);
+        return setPrice(billRepository.save(bill));
     }
 
     public Bill update(long id, BillRequest billRequest) {
@@ -50,11 +55,11 @@ public class BillService {
                 .order(orderService.get(billRequest.getOrderId()))
                 .company(billRequest.getCompany())
                 .dateTime(billRequest.getDateTime())
-                .priceNet(billRequest.getPriceNet())
                 .customerName(Optional.of(billRequest.getCustomerName()).get())
                 .nipNumber(Optional.of(billRequest.getNipNumber()).get())
                 .build();
-        return billRepository.save(bill);
+
+        return setPrice(billRepository.save(bill));
     }
 
     public void delete(long id) {
@@ -66,5 +71,10 @@ public class BillService {
         if (!billRepository.existsById(productId)) {
             throw new NotFoundException("Bill not found", Long.toString(productId));
         }
+    }
+
+    private Bill setPrice(Bill bill) {
+        bill.setPriceNet(billCalcService.priceNetCalc(bill.getOrder().getId()));
+        return bill;
     }
 }

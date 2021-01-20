@@ -22,8 +22,6 @@ public class BillRequest {
     @NotNull(message = "Data and Time must not be empty.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateTime;
-    @NotNull(message = "Price net must not be empty.")
-    private double priceNet;
     private String nipNumber;
     private String customerName;
 }
