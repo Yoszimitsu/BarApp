@@ -1,6 +1,5 @@
 package com.bar.orderitems.dto;
 
-//import com.bar.order.entity.Order;
 import com.bar.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderItemDto {
 
-//    private Order order;
+    private long id;
     private Product product;
     private int quantity;
 }
