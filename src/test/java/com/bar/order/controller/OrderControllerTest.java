@@ -1,8 +1,8 @@
 package com.bar.order.controller;
 
 import com.bar.order.request.OrderRequest;
-import com.bar.order.OrderService;
-import com.bar.order.mapper.OrderMapperService;
+import com.bar.order.service.OrderService;
+import com.bar.order.service.mapper.OrderMapperService;
 import com.bar.orderitems.request.OrderItemRequest;
 import com.bar.product.service.ProductService;
 import io.restassured.RestAssured;
