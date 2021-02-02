@@ -20,7 +20,7 @@ public class OrderRequest {
     @NotNull(message = "Order list must not be empty.")
     private List<OrderItemRequest> orderItemList;
     @NotNull(message = "Employee ID must not be empty.")
-    private int employeeId;
+    private Integer employeeId;
     @NotNull(message = "Date&Time must not be empty.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateTime;
