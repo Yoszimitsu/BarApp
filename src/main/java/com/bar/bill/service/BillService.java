@@ -22,7 +22,7 @@ public class BillService {
     BillCalcService billCalcService;
 
     public Bill get(long id) {
-        var bill = Optional.of(billRepository.findById(id)).get()
+        var bill = Optional.ofNullable(billRepository.findById(id)).get()
                 .orElseThrow(() -> new NotFoundException("Bill not found", Long.toString(id)));
 
         return setPrice(bill);

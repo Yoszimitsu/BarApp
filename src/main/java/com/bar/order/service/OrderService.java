@@ -20,7 +20,7 @@ public class OrderService {
     OrderItemService orderItemService;
 
     public Order get(long id) {
-        return Optional.of(orderRepository.findById(id)).get()
+        return Optional.ofNullable(orderRepository.findById(id)).get()
                 .orElseThrow(() -> new NotFoundException("Order not found", Long.toString(id)));
     }
 

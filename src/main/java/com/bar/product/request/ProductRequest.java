@@ -18,8 +18,8 @@ public class ProductRequest {
     @NotNull(message = "Product name must not be empty.")
     private String name;
 
-    @NotNull(message = "Price must not be empty.")
     @PositiveOrZero
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private double priceNet;
+    @NotNull(message = "Price must not be empty.")
+    private Double priceNet;
 }
