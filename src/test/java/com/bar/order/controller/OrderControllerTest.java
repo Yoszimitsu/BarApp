@@ -1,22 +1,23 @@
 package com.bar.order.controller;
 
 import com.bar.order.request.OrderRequest;
-import com.bar.order.service.OrderService;
-import com.bar.order.service.mapper.OrderMapperService;
+import com.bar.order.OrderService;
+import com.bar.order.mapper.OrderMapperService;
 import com.bar.orderitems.request.OrderItemRequest;
+import com.bar.product.service.ProductService;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,9 +28,11 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
-@ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = DEFINED_PORT)
 class OrderControllerTest {
 
     @InjectMocks
@@ -39,28 +42,10 @@ class OrderControllerTest {
     OrderService orderService;
     @Mock
     OrderMapperService orderMapperService;
+    @Mock
+    ProductService productService;
 
     OrderItemRequest orderItemRequest;
-
-    @BeforeAll
-    static void init() {
-        Map<String, Object> newProduct = new HashMap<>();
-        newProduct.put("name", "test1");
-        newProduct.put("priceNet", 2.00);
-
-
-        given().
-            contentType("application/json").
-            accept("application/json").
-            body(newProduct).
-        when().
-            post("/api/product").
-        then().
-            statusCode(201).
-            contentType("application/json").
-            extract().
-            response();
-    }
 
     @BeforeEach
     void setUp() {
@@ -74,8 +59,28 @@ class OrderControllerTest {
                 .build();
     }
 
-    @Test()
+    @Test
     @Order(1)
+    void before() {
+        Map<String, Object> newProduct = new HashMap<>();
+        newProduct.put("name", "test1");
+        newProduct.put("priceNet", 2.00);
+
+        given().
+                contentType("application/json").
+                accept("application/json").
+                body(newProduct).
+                when().
+                post("/api/product").
+                then().
+                statusCode(201).
+                contentType("application/json").
+                extract().
+                response();
+    }
+
+    @Test()
+    @Order(2)
     void addOrder_StatusCode_201() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
@@ -109,7 +114,7 @@ class OrderControllerTest {
     }
 
     @Test()
-    void addProduct_ArgumentNotValidException_400() {
+    void addOrder_ArgumentNotValidException_400() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
 
@@ -133,7 +138,7 @@ class OrderControllerTest {
     }
 
     @Test()
-    void addProduct_notEnoughArgument_400() {
+    void addOrder_NotEnoughParametersException_400() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
 
@@ -170,7 +175,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getAllOrders() {
         Response response =
                 given().
@@ -189,7 +194,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getOrder_statusCode_200() {
         given().
             contentType("application/json").
@@ -204,7 +209,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void getOrder() {
         Response response =
                 given().
@@ -242,7 +247,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void updateOrder_StatusCode_200() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
@@ -276,7 +281,7 @@ class OrderControllerTest {
     }
 
     @Test
-    void updateOrder_OrderNotFoundException_400() {
+    void updateOrder_OrderNotFoundException_500() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
 
@@ -291,16 +296,16 @@ class OrderControllerTest {
             accept("application/json").
             body(updateOrderRequest).
         when().
-            put("/api/product/100").
+            put("/api/order/100").
         then().
-            statusCode(400).
+            statusCode(500).
             contentType("application/json").
             extract().
             response();
     }
 
     @Test
-    void updateProduct_ArgumentNotValidException_400() {
+    void updateOrder_ArgumentNotValidException_400() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
 
@@ -324,7 +329,7 @@ class OrderControllerTest {
     }
 
     @Test
-    void updateOrder_NotEnoughException_400() {
+    void updateOrder_NotEnoughParametersException_400() {
         List<OrderItemRequest> orderItemListReq = new ArrayList<>();
         orderItemListReq.add(orderItemRequest);
 
@@ -346,7 +351,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     void deleteOrder_StatusCode_200() {
         given().
             contentType("application/json").
