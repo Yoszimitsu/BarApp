@@ -225,7 +225,7 @@ class OrderItemServiceTest {
                 .build();
 
         OrderItemRequest orderItemRequest = OrderItemRequest.builder()
-                .productId(1)
+                .productId(1L)
                 .quantity(10)
                 .build();
 
@@ -261,7 +261,7 @@ class OrderItemServiceTest {
                 .build();
 
         OrderItemRequest orderItemRequest = OrderItemRequest.builder()
-                .productId(1)
+                .productId(1L)
                 .quantity(10)
                 .build();
 
@@ -281,7 +281,7 @@ class OrderItemServiceTest {
     void updateOrderItem_NotFoundException() {
         long id = 1;
         OrderItemRequest orderItemRequest = OrderItemRequest.builder()
-                .productId(1)
+                .productId(1L)
                 .quantity(10)
                 .build();
 

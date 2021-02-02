@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class OrderItemRequest {
 
     @NotNull(message = "Product ID must not be null.")
-    private long productId;
+    private Long productId;
     @NotNull(message = "Quantity must not be null.")
-    private int quantity;
+    private Integer quantity;
 }
