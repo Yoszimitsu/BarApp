@@ -9,11 +9,12 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,9 +22,11 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
-@ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = DEFINED_PORT)
 class ProductControllerTest {
 
     @InjectMocks
@@ -108,7 +111,7 @@ class ProductControllerTest {
     }
 
     @Test()
-    void addProduct_notEnoughArgument_400() {
+    void addProduct_NotEnoughParametersException_400() {
         Map<String, Object> newProduct = new HashMap<>();
         newProduct.put("name", "test2");
 
@@ -278,7 +281,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void updateProduct_NotEnoughException_400() {
+    void updateProduct_NotEnoughParametersException_400() {
         Map<String, Object> updateProduct = new HashMap<>();
         updateProduct.put("name", "updateTest");
 
